@@ -174,7 +174,7 @@ My first step in creating an object for a feature is to create “stubs” withi
 
 * `myFeature.init()` will run on `$(document).ready()`. It will turn the semantic HTML we start with into a JavaScript-enabled user interface.
 * `myFeature.buildSectionNav()` will be called by `myFeature.init()`. It will take a jQuery object that contains all of the sections from the semantic HTML and use those sections to build the top navigation. It will bind the click handlers to the top navigation items so that clicking on them will show the appropriate section.
-* `myFeature.buildItemNav()` will be called by `myFeature.showSection()`. It will ake a jQuery object that contains all of the items associated with the section from the semantic HTML, and use them to build the side navigation. It will bind the click handlers to the side navigation items so that clicking on them will show the appropriate content.
+* `myFeature.buildItemNav()` will be called by `myFeature.showSection()`. It will take a jQuery object that contains all of the items associated with the section from the semantic HTML, and use them to build the side navigation. It will bind the click handlers to the side navigation items so that clicking on them will show the appropriate content.
 * `myFeature.showSection()` will be called when the user clicks on an item in the top navigation. It will use the navigation item that’s clicked on to figure out which section to show from the semantic HTML.
 * `myFeature.showContentItem()` will be called when the user clicks on an item in the side navigation. It will use the navigation item that’s clicked on to figure out which content item to show from the semantic HTML.
 
@@ -225,7 +225,7 @@ Once we’ve built this skeleton, it’s time to start coding. Let’s start by 
 
     myFeature.$content = $('<p/>')
       .attr('id','content')
-      . insertAfter(myFeature.$item_nav);
+      .insertAfter(myFeature.$item_nav);
 
   // build the section-level nav and
   // "click" the first item
@@ -269,7 +269,7 @@ Next we’ll create the `myFeature.buildSectionNav()` method:
           .data('section', $section)
 
           // bind the click behavior
-          // to the newly created list itme
+          // to the newly created list item
           // so it will show the section
           .click(myFeature.showSection);
     });
@@ -279,8 +279,10 @@ Next we’ll create the `myFeature.buildSectionNav()` method:
 Next we’ll create the `myFeature.buildItemNav()` method:
 
 ```javascript
-// iterate over the provided list of items
-$items.each(function() {
+'buildItemNav' : function($items) {
+
+  // iterate over the provided list of items
+  $items.each(function() {
 
     // get the item
     var $item = $(this);
@@ -306,8 +308,8 @@ $items.each(function() {
       // newly created list item so it will
       // show the content item
       .click(myFeature.showContentItem);
-
-});
+  });
+};
 ```
 
 Finally, we’ll write the methods for showing sections and content items:
@@ -345,7 +347,7 @@ Finally, we’ll write the methods for showing sections and content items:
   var $li = $(this);
 
   // mark the clicked list item as current
-  // and revmoe the current marker from its siblings
+  // and remove the current marker from its siblings
   $li.addClass('current')
     .siblings().removeClass('current');
 
