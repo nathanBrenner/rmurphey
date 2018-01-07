@@ -297,7 +297,7 @@ Next we’ll create the `myFeature.buildItemNav()` method:
       .text($item.find('h3:first').text())
 
       // add the list item to the item navigation
-      .appendTo(myFeature.$item.nav)
+      .appendTo(myFeature.$item_nav)
 
       // use data to store a reference
       // to the original item on the
